@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from 'axios';
 import "./Result.css";
 
 const API_URL_CONVERT = 'https://api.exchangerate.host/convert';
@@ -12,8 +13,10 @@ useEffect(() => {
     const url = `${API_URL_CONVERT}?from=${CONVERT_FROM}&to=${code}`;
 
     try {
-      const apiResponse = await fetch(url);
-      const { result } = await apiResponse.json();
+      // const apiResponse = await fetch(url);
+      // const { result } = await apiResponse.json();
+      const apiResponse = await axios.get(url);
+      const { result } = await apiResponse.data;
 
       setCurrencyData({
         ...currency,

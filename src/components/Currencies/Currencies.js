@@ -1,5 +1,6 @@
 //import currenciesData from '../../data/currencies.json';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import CurrenciesItem from './CurrenciesItem/CurrenciesItem';
 const API_URL_SYMBOLS = 'https://api.exchangerate.host/symbols';
@@ -7,21 +8,27 @@ const API_URL_SYMBOLS = 'https://api.exchangerate.host/symbols';
 function Currencies({ setCurrency }){
   const [currenciesData, setCurrenciesData] = useState([]);
   useEffect(() => {
-    fetch(API_URL_SYMBOLS, { method: 'GET' })
-    .then((response) => {
-      if (!response.ok) {
-        // on lève manuellement une erreur
-        throw new Error(`[HTTP Error] status: ${response.status}`);
-      }
+    axios
+    .get(API_URL_SYMBOLS)
+    .then(({ data }) => {
+      setCurrenciesData(Object.values(data.symbols));
+    })
+   .catch((error) => console.error(error));
+    // fetch(API_URL_SYMBOLS, { method: 'GET' })
+    // .then((response) => {
+    //   if (!response.ok) {
+    //     // on lève manuellement une erreur
+    //     throw new Error(`[HTTP Error] status: ${response.status}`);
+    //   }
 
-      return response.json();
-    })
-    .then(({ symbols }) => {
-      console.log(Object.values(symbols));
-      setCurrenciesData(Object.values(symbols));
-    })
-    .catch((error)  => console.error(error));
-    // .catch(console.error);
+    //   return response.json();
+    // })
+    // .then(({ symbols }) => {
+    //   console.log(Object.values(symbols));
+    //   setCurrenciesData(Object.values(symbols));
+    // })
+    // .catch((error)  => console.error(error));
+    // // .catch(console.error);
 }, [])
 
 
