@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Converter from './components/Converter/Converter';
+import Converter from './Views/Converter/Converter';
 import './reset.css';
 import './style.css';
 
